@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import "./dashboard.css";
 import logo from "../../assets/logo.png";
 import Button from '@mui/material/Button';
@@ -6,6 +6,7 @@ import { Drawer, Tooltip } from "@mui/material";
 import DrawerComponent from "../../components/QueryContainer";
 import ImageArea from "../../components/ImageArea";
 import jsPDF from 'jspdf';
+import ClearModal from "../../components/ClearModal";
 
 
 async function query(data) {
@@ -65,8 +66,6 @@ function Dashboard() {
 
     const isAddButtonDisabled = generatedImages.length >= 10;
 
-    const pdfRef = useRef();
-
     const generatePdf = () => {
         const pdf = new jsPDF('p', 'mm', [326, 131]);
         let xOffset = 1;
@@ -92,6 +91,15 @@ function Dashboard() {
         pdf.save('comic-panel.pdf');
     };
 
+    const [openClearModal, setOpenClearModal] = useState(false);
+    const handleOpenClearModal = () => setOpenClearModal(true);
+    const handleCloseClearModal = () => setOpenClearModal(false);
+
+    const clearPanel = () => {
+        setGeneratedImages([]);
+        handleCloseClearModal();
+    }
+
     return (
         <div>
             <nav className="navbar">
@@ -103,6 +111,8 @@ function Dashboard() {
                     <Button onClick={toggleDrawer} disabled={isAddButtonDisabled}>Add Comic Strip</Button>
                 </span>
             </Tooltip>
+            <Button onClick={handleOpenClearModal}>Clear Panel</Button>
+            <ClearModal open={openClearModal} handleClose={handleCloseClearModal} clearPanel={clearPanel} />
             <Tooltip title={!isAddButtonDisabled ? '10 images required' : ''}>
                 <span>
                     <Button onClick={generatePdf} disabled={!isAddButtonDisabled}>Share Comic Strip</Button>
