@@ -1,26 +1,22 @@
 import React from 'react';
-import { List, ListItem, TextField, Button } from '@mui/material';
+import { TextField, Button } from '@mui/material';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import "./QueryContainer.css";
 
 function DrawerComponent({ handleInputChange, handleSubmit, inputText }) {
-
   return (
-    <div>
-      <List>
-        <ListItem>
-          <TextField
-            label="Enter Text"
+    <div className='add-drawer'>
+        <TextField
+            label="Enter Prompt"
             variant="outlined"
             fullWidth
             value={inputText}
             onChange={handleInputChange}
-          />
-        </ListItem>
-        <ListItem>
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Submit
-          </Button>
-        </ListItem>
-      </List>
+            className='prompt'
+        />
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
+            Generate&nbsp; <AutoAwesomeIcon />
+        </Button>
     </div>
   );
 }

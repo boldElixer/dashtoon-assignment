@@ -16,3 +16,10 @@
     font-size: 20px;
     font-weight: 600;
 }
+
+.options {
+    display: flex;
+    gap: 2vmax;
+    justify-content: right;
+    padding: 1vmax 2vmax;
+}
