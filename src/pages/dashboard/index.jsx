@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./dashboard.css";
 import logo from "../../assets/logo.png";
 import Button from '@mui/material/Button';
 import { Drawer, Tooltip } from "@mui/material";
 import DrawerComponent from "../../components/QueryContainer";
 import ImageArea from "../../components/ImageArea";
+import jsPDF from 'jspdf';
+
 
 async function query(data) {
 	const response = await fetch(
@@ -63,6 +65,33 @@ function Dashboard() {
 
     const isAddButtonDisabled = generatedImages.length >= 10;
 
+    const pdfRef = useRef();
+
+    const generatePdf = () => {
+        const pdf = new jsPDF('p', 'mm', [326, 131]);
+        let xOffset = 1;
+        let yOffset = 1;
+    
+        for (let i = 0; i < generatedImages.length; i++) {
+          if (i % 2 === 0 && i !== 0) {
+            yOffset += 65; // Adjust as needed
+            xOffset = 1;
+          }
+          else if(i !== 0) {
+            xOffset = 66;
+          }
+    
+          const img = new Image();
+          img.src = generatedImages[i];
+          //console.log(generatedImages[i]);
+    
+          pdf.addImage(img, 'PNG', xOffset, yOffset, 64, 64);
+          //xOffset += 100; // Adjust as needed
+        }
+    
+        pdf.save('comic-panel.pdf');
+    };
+
     return (
         <div>
             <nav className="navbar">
@@ -72,6 +101,11 @@ function Dashboard() {
             <Tooltip title={isAddButtonDisabled ? 'Maximum 10 images allowed' : ''}>
                 <span>
                     <Button onClick={toggleDrawer} disabled={isAddButtonDisabled}>Add Comic Strip</Button>
+                </span>
+            </Tooltip>
+            <Tooltip title={!isAddButtonDisabled ? '10 images required' : ''}>
+                <span>
+                    <Button onClick={generatePdf} disabled={!isAddButtonDisabled}>Share Comic Strip</Button>
                 </span>
             </Tooltip>
             <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer}>
