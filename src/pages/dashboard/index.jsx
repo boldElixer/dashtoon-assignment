@@ -7,6 +7,8 @@ import DrawerComponent from "../../components/QueryContainer";
 import ImageArea from "../../components/ImageArea";
 import jsPDF from 'jspdf';
 import ClearModal from "../../components/ClearModal";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 async function query(data) {
 	const response = await fetch(
@@ -26,6 +28,33 @@ async function query(data) {
 }
 
 function Dashboard({loading, setLoading}) {
+
+    const notify = (e) => {
+        toast.error(e, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+    }
+
+    const notifySuccess = (e) => {
+        toast.success(e, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+    }
+
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const [generatedImages, setGeneratedImages] = useState([]);
     const [inputText, setInputText] = useState('');
@@ -48,8 +77,11 @@ function Dashboard({loading, setLoading}) {
           setGeneratedImages((prevImages) => [...prevImages, URL.createObjectURL(result)].slice(-10));
     
           setLoading(false);
+
+          notifySuccess('Image generated successfully!!')
         } catch (error) {
-          console.error("Error fetching image:", error);
+          //console.error("Error fetching image:", error);
+          notify('Failed to generate an Image', error);
           setLoading(false);
         }
 
@@ -106,6 +138,7 @@ function Dashboard({loading, setLoading}) {
 
     return (
         <div>
+            <ToastContainer />
             <nav className="navbar">
                 <img src={logo} alt="Logo" className="logo" />
                 <span className="name">DASHTOON</span>
