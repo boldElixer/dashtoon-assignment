@@ -1,45 +1,51 @@
 /* Dashboard.css (or your existing CSS file) */
 .image-board {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1vmax;
-    margin-top: 1vmax;
-    margin-bottom: 5vmax;
-  }
-  
-  .image-container {
-    position: relative;
-    overflow: hidden;
-    width: 30%;
-    height: 30%;
-  }
-  
-  .generated-image {
-    max-width: 100%;
-    height: auto;
-    transition: opacity 0.3s;
-  }
-  
-  .delete-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.3s;
-    scale: 1.5;
-  }
-  
-  .image-container:hover .generated-image {
-    opacity: 0.8;
-  }
-  
-  .image-container:hover .delete-button {
-    opacity: 1;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1vmax;
+  margin-top: 1vmax;
+  margin-bottom: 5vmax;
+}
 
-  .delete-button:hover {
-    cursor: pointer;
+.image-container {
+  position: relative;
+  overflow: hidden;
+  width: 30%;
+  height: 30%;
+}
+
+.generated-image {
+  max-width: 100%;
+  height: auto;
+  transition: opacity 0.3s;
+}
+
+.delete-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  scale: 1.5;
+}
+
+.image-container:hover .generated-image {
+  opacity: 0.8;
+}
+
+.image-container:hover .delete-button {
+  opacity: 1;
+}
+
+.delete-button:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .image-container {
+    width: 40%;
+    height: 40%;
   }
-  
+}

@@ -66,7 +66,7 @@ function Dashboard() {
 
     const isAddButtonDisabled = generatedImages.length >= 10;
 
-    const isClearButtonDisabled = generatedImages.length == 0;
+    const isClearButtonDisabled = generatedImages.length === 0;
 
     const generatePdf = () => {
         const pdf = new jsPDF('p', 'mm', [326, 131]);
@@ -111,16 +111,16 @@ function Dashboard() {
             <div className="options">
                 <Tooltip title={isAddButtonDisabled ? 'Maximum 10 images allowed' : ''}>
                     <span>
-                        <Button variant="contained" onClick={toggleDrawer} disabled={isAddButtonDisabled}>Add Comic Strip</Button>
+                        <Button variant="contained" onClick={toggleDrawer} disabled={isAddButtonDisabled} style={{fontSize: '1vmax'}}>Add Comic Strip</Button>
                     </span>
                 </Tooltip>
-                <Button variant="outlined" color='error' onClick={handleOpenClearModal} disabled={isClearButtonDisabled}>Clear Panel</Button>
-                <ClearModal open={openClearModal} handleClose={handleCloseClearModal} clearPanel={clearPanel} />
+                <Button variant="outlined" color='error' onClick={handleOpenClearModal} disabled={isClearButtonDisabled} style={{fontSize: '1vmax'}}>Clear Panel</Button>
                 <Tooltip title={!isAddButtonDisabled ? '10 images required' : ''}>
                     <span>
-                        <Button variant="contained" onClick={generatePdf} disabled={!isAddButtonDisabled}>Share Comic Strip</Button>
+                        <Button variant="contained" onClick={generatePdf} disabled={!isAddButtonDisabled} style={{fontSize: '1vmax'}}>Share Comic Strip</Button>
                     </span>
                 </Tooltip>
+                <ClearModal open={openClearModal} handleClose={handleCloseClearModal} clearPanel={clearPanel} />
             </div>
             <Drawer anchor="right" open={isDrawerOpen} onClose={toggleDrawer}>
                 <DrawerComponent

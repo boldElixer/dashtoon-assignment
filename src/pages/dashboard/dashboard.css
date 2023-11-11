@@ -3,17 +3,17 @@
     color: #fff;
     display: flex;
     align-items: center;
-    padding: 10px 20px;
+    padding: 1vmax 2vmax;
 }
 
 .logo {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
+    width: 3vmax;
+    height: 3vmax;
+    margin-right: 1.5vmax;
 }
 
 .name {
-    font-size: 20px;
+    font-size: 2vmax;
     font-weight: 600;
 }
 

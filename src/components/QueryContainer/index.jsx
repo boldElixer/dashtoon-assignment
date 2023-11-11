@@ -5,18 +5,17 @@ import "./QueryContainer.css";
 
 function DrawerComponent({ handleInputChange, handleSubmit, inputText }) {
   return (
-    <div className='add-drawer'>
-        <TextField
-            label="Enter Prompt"
-            variant="outlined"
-            fullWidth
-            value={inputText}
-            onChange={handleInputChange}
-            className='prompt'
-        />
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Generate&nbsp; <AutoAwesomeIcon />
-        </Button>
+    <div className='add-drawer' style={{fontSize: '1vmax'}}>
+      <TextField
+          label="Enter Prompt"
+          variant="outlined"
+          fullWidth
+          value={inputText}
+          onChange={handleInputChange}
+      />
+      <Button variant="contained" color="primary" onClick={handleSubmit} style={{marginTop: '1vmax', fontSize: '1vmax'}}>
+          Generate&nbsp; <AutoAwesomeIcon />
+      </Button>
     </div>
   );
 }
