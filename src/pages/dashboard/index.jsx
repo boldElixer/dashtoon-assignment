@@ -8,7 +8,6 @@ import ImageArea from "../../components/ImageArea";
 import jsPDF from 'jspdf';
 import ClearModal from "../../components/ClearModal";
 
-
 async function query(data) {
 	const response = await fetch(
 		"https://xdwvg9no7pefghrn.us-east-1.aws.endpoints.huggingface.cloud",
@@ -26,7 +25,7 @@ async function query(data) {
 	return result;
 }
 
-function Dashboard() {
+function Dashboard({loading, setLoading}) {
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const [generatedImages, setGeneratedImages] = useState([]);
     const [inputText, setInputText] = useState('');
@@ -40,15 +39,18 @@ function Dashboard() {
     };
 
     const handleSubmit = async () => {
+        setLoading(true);
+        toggleDrawer();
         try {
           const result = await query({ "inputs": inputText });
     
           // Set the generated image in the state
           setGeneratedImages((prevImages) => [...prevImages, URL.createObjectURL(result)].slice(-10));
     
-          // Optionally, you can display the image or do other things with the result
+          setLoading(false);
         } catch (error) {
           console.error("Error fetching image:", error);
+          setLoading(false);
         }
 
         // Optionally, you can clear the input field after submitting
@@ -127,6 +129,7 @@ function Dashboard() {
                     handleInputChange={handleInputChange}
                     handleSubmit={handleSubmit}
                     inputText={inputText}
+                    loading={loading}
                 />
             </Drawer>
             <ImageArea generatedImages={generatedImages} onDeleteImage={handleDeleteImage} />
