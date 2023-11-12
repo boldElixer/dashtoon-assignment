@@ -5,13 +5,23 @@ import DeleteModal from '../DeleteModal';
 
 function ImageArea({ generatedImages, onDeleteImage }) {
 
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const handleOpenDeleteModal = () => setOpenDeleteModal(true);
-  const handleCloseDeleteModal = () => setOpenDeleteModal(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState({
+    isOpen: false,
+    index: -1,
+  });
+  const handleOpenDeleteModal = (index) => setOpenDeleteModal({
+    isOpen: true,
+    index: index,
+  });
+  const handleCloseDeleteModal = (index) => setOpenDeleteModal({
+    isOpen: false,
+    index: -1,
+  });
 
-  const deleteImage = (index) => {
-    onDeleteImage(index);
-    setOpenDeleteModal(false);
+  const deleteImage = () => {
+    if(!openDeleteModal.isOpen) return ;
+    onDeleteImage(openDeleteModal.index);
+    handleCloseDeleteModal();
   }
 
   return (
@@ -19,10 +29,10 @@ function ImageArea({ generatedImages, onDeleteImage }) {
       {generatedImages.map((image, index) => (
         <div key={index} className="image-container">
             <img src={image} alt={`Generated Image ${index + 1}`} className="generated-image" />
-            <DeleteIcon style={{color: 'red'}} onClick={handleOpenDeleteModal} className="delete-button"/>
+            <DeleteIcon style={{color: 'red'}} onClick={() => handleOpenDeleteModal(index)} className="delete-button"/>
         </div>
       ))}
-      <DeleteModal open={openDeleteModal} handleClose={handleCloseDeleteModal} deleteImage={deleteImage} />
+      <DeleteModal open={openDeleteModal.isOpen} handleClose={handleCloseDeleteModal} deleteImage={deleteImage} />
     </div>
   );
 }

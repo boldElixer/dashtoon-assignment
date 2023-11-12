@@ -93,9 +93,10 @@ function Dashboard({loading, setLoading}) {
     };
 
     const handleDeleteImage = (index) => {
-        const updatedImages = [...generatedImages];
-        updatedImages.splice(index, 1);
-        setGeneratedImages(updatedImages);
+        setGeneratedImages((prev) => {
+            prev.splice(index, 1);
+            return [...prev];
+        });
     };
 
     const isAddButtonDisabled = generatedImages.length >= 10;
