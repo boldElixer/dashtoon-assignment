@@ -27,8 +27,8 @@ function ClearModal({open, handleClose, clearPanel}) {
                 <ErrorOutlineOutlinedIcon style={{color : 'red'}} />
                 Are you sure you want to clear Comic Panel?
                 <br/>
-                <Button onClick={clearPanel} style={{fontSize: '1vmax'}}>Yes</Button>
-                <Button onClick={handleClose} style={{fontSize: '1vmax'}}>No</Button>
+                <Button variant="contained" color="error" onClick={clearPanel} style={{marginRight: '1vmax', fontSize: '1vmax'}}>Yes</Button>
+                <Button variant="contained" color="success" onClick={handleClose} style={{fontSize: '1vmax'}}>No</Button>
             </Box>
         </Modal>
     )
